@@ -1,11 +1,44 @@
-// Örnək Controller metodu
-public IActionResult Index()
-{
-    var reservations = new List<Reservation>
-    {
-        new Reservation { Id = 1, RoomNumber = "401", Date = DateTime.Parse("2026-04-16"), Time = new TimeSpan(16, 15, 0) },
-        new Reservation { Id = 2, RoomNumber = "402", Date = DateTime.Parse("2026-04-17"), Time = new TimeSpan(14, 16, 0) }
-    };
+using Microsoft.AspNetCore.Mvc;
+using MeetingRoomApp.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-    return View(reservations);
+namespace MeetingRoomApp.Controllers
+{
+    public class ReservationController : Controller
+    {
+        // Məlumatlar silinməsin deyə static list istifadə edirik
+        private static List<Reservation> _reservations = new List<Reservation>
+        {
+            new Reservation { Id = 1, RoomNumber = "Otaq 401", Date = DateTime.Parse("2026-04-16"), Time = new TimeSpan(16, 15, 0) },
+            new Reservation { Id = 2, RoomNumber = "Otaq 402", Date = DateTime.Parse("2026-04-17"), Time = new TimeSpan(14, 16, 0) }
+        };
+
+        public IActionResult Index()
+        {
+            return View(_reservations);
+        }
+
+        [HttpPost]
+        public IActionResult Create(string RoomNumber, DateTime Date, TimeSpan Time)
+        {
+            var newRes = new Reservation
+            {
+                Id = _reservations.Count + 1,
+                RoomNumber = RoomNumber,
+                Date = Date,
+                Time = Time
+            };
+            _reservations.Add(newRes);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var item = _reservations.FirstOrDefault(x => x.Id == id);
+            if (item != null) _reservations.Remove(item);
+            return RedirectToAction("Index");
+        }
+    }
 }
