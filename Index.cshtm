@@ -1,0 +1,103 @@
+@model List<MeetingRoomApp.Models.Reservation>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İclas Otağı Rezervasiyası</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #f8fafc; display: flex; justify-content: center; padding-top: 50px; color: #1e293b; }
+        .container { width: 95%; max-width: 1000px; }
+        .card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h2 { text-align: center; margin-bottom: 35px; color: #334155; font-size: 24px; }
+        
+        /* Form */
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; align-items: flex-end; margin-bottom: 40px; background: #f1f5f9; padding: 20px; border-radius: 12px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: #64748b; }
+        .input-group select, .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; transition: 0.2s; }
+        .input-group input:focus { border-color: #68d391; box-shadow: 0 0 0 3px rgba(104, 211, 145, 0.2); }
+        .btn-add { background-color: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .btn-add:hover { background-color: #059669; transform: translateY(-1px); }
+
+        /* Table */
+        .table-container { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        thead { background-color: #475569; color: white; }
+        th { padding: 16px; text-align: left; font-weight: 500; }
+        td { padding: 16px; border-bottom: 1px solid #f1f5f9; }
+        tr:hover { background-color: #f8fafc; }
+
+        /* Buttons */
+        .btn-edit { background-color: #f59e0b; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; margin-right: 5px; }
+        .btn-delete { background-color: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+        button:active { transform: scale(0.96); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>🗓️ İclas Otağı Rezervasiyası</h2>
+        
+        <form asp-controller="Home" asp-action="AddReservation" method="post">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Otaq Seçin:</label>
+                    <select name="RoomNumber">
+                        <option value="Otaq 401">Otaq 401</option>
+                        <option value="Otaq 402" selected>Otaq 402</option>
+                        <option value="Otaq 403">Otaq 403</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Tarix:</label>
+                    <input type="date" name="Date" required>
+                </div>
+                <div class="input-group">
+                    <label>Saat:</label>
+                    <input type="time" name="Time" required>
+                </div>
+                <button type="submit" class="btn-add">Əlavə et</button>
+            </div>
+        </form>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Otaq No</th>
+                        <th>Tarix</th>
+                        <th>Saat</th>
+                        <th>Əməliyyatlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong>@item.RoomNumber</strong></td>
+                            <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                            <td>@item.Time.ToString(@"hh\:mm")</td>
+                            <td>
+                                <button class="btn-edit">Redaktə</button>
+                                <form asp-action="DeleteReservation" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                    <button type="submit" class="btn-delete" onclick="return confirm('Silmək istədiyinizə əminsiniz?')">Sil</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
