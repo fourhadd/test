@@ -1,0 +1,25 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace MeetingRoomApp.Models
+{
+    public class Reservation
+    {
+        // Hər bir rezervasiyanın unikal ID-si (Verilənlər bazası üçün vacibdir)
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Zəhmət olmasa otağı seçin")]
+        [Display(Name = "Otaq No")]
+        public string RoomNumber { get; set; }
+
+        [Required(ErrorMessage = "Zəhmət olmasa tarixi daxil edin")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Tarix")]
+        public DateTime Date { get; set; }
+
+        [Required(ErrorMessage = "Zəhmət olmasa saatı daxil edin")]
+        [DataType(DataType.Time)]
+        [Display(Name = "Saat")]
+        public TimeSpan Time { get; set; }
+    }
+}
