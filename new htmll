@@ -1,0 +1,21 @@
+<form asp-controller="Reservation" asp-action="Create" method="post">
+    <div class="form-grid">
+        <div class="input-group">
+            <label>Otaq Seçin:</label>
+            <select name="RoomNumber">
+                <option value="Otaq 401">Otaq 401</option>
+                <option value="Otaq 402" selected>Otaq 402</option>
+                <option value="Otaq 403">Otaq 403</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Tarix:</label>
+            <input type="date" name="Date">
+        </div>
+        <div class="input-group">
+            <label>Saat:</label>
+            <input type="time" name="Time">
+        </div>
+        <button type="submit" class="btn-add">Əlavə et</button>
+    </div>
+</form>
