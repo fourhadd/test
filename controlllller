@@ -1,0 +1,11 @@
+[HttpPost]
+public IActionResult Create(Reservation model)
+{
+    if (ModelState.IsValid)
+    {
+        model.Id = _reservations.Count + 1; // Yeni ID veririk
+        _reservations.Add(model); // Siyahıya əlavə edirik
+    }
+    // Əlavə etdikdən sonra siyahını yenidən görmək üçün Index-ə qayıdırıq
+    return RedirectToAction("Index");
+}
