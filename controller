@@ -1,0 +1,11 @@
+// Örnək Controller metodu
+public IActionResult Index()
+{
+    var reservations = new List<Reservation>
+    {
+        new Reservation { Id = 1, RoomNumber = "401", Date = DateTime.Parse("2026-04-16"), Time = new TimeSpan(16, 15, 0) },
+        new Reservation { Id = 2, RoomNumber = "402", Date = DateTime.Parse("2026-04-17"), Time = new TimeSpan(14, 16, 0) }
+    };
+
+    return View(reservations);
+}
