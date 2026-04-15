@@ -1,21 +1,62 @@
-<form asp-controller="Reservation" asp-action="Create" method="post">
-    <div class="form-grid">
-        <div class="input-group">
-            <label>Otaq Seçin:</label>
-            <select name="RoomNumber">
-                <option value="Otaq 401">Otaq 401</option>
-                <option value="Otaq 402" selected>Otaq 402</option>
-                <option value="Otaq 403">Otaq 403</option>
-            </select>
+@model IEnumerable<MeetingRoomApp.Models.Reservation>
+
+<div class="container">
+    <div class="card">
+        <h2>🗓️ İclas Otağı Rezervasiyası</h2>
+        
+        <form asp-controller="Reservation" asp-action="Create" method="post">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Otaq Seçin:</label>
+                    <select name="RoomNumber">
+                        <option value="Otaq 401">Otaq 401</option>
+                        <option value="Otaq 402" selected>Otaq 402</option>
+                        <option value="Otaq 403">Otaq 403</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Tarix:</label>
+                    <input type="date" name="Date" required>
+                </div>
+                <div class="input-group">
+                    <label>Saat:</label>
+                    <input type="time" name="Time" required>
+                </div>
+                <button type="submit" class="btn-add">Əlavə et</button>
+            </div>
+        </form>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Otaq No</th>
+                        <th>Tarix</th>
+                        <th>Saat</th>
+                        <th>Əməliyyatlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.RoomNumber</td>
+                                <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                                <td>@item.Time.ToString(@"hh\:mm")</td>
+                                <td>
+                                    <button class="btn-edit">Redaktə</button>
+                                    
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                        <button type="submit" class="btn-delete" onclick="return confirm('Silmək istədiyinizə əminsiniz?')">Sil</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
         </div>
-        <div class="input-group">
-            <label>Tarix:</label>
-            <input type="date" name="Date">
-        </div>
-        <div class="input-group">
-            <label>Saat:</label>
-            <input type="time" name="Time">
-        </div>
-        <button type="submit" class="btn-add">Əlavə et</button>
     </div>
-</form>
+</div>
