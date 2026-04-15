@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İclas Otağı Rezervasiyası</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>🗓️ İclas Otağı Rezervasiyası</h2>
+        
+        <div class="form-grid">
+            <div class="input-group">
+                <label>Otaq Seçin:</label>
+                <select id="otaq-secin">
+                    <option>Otaq 401</option>
+                    <option selected>Otaq 402</option>
+                    <option>Otaq 403</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Tarix:</label>
+                <input type="date">
+            </div>
+            <div class="input-group">
+                <label>Saat:</label>
+                <input type="time">
+            </div>
+            <button class="btn-add">Əlavə et</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Otaq No</th>
+                        <th>Tarix</th>
+                        <th>Saat</th>
+                        <th>Əməliyyatlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>401</td>
+                        <td>2026-04-16</td>
+                        <td>16:15</td>
+                        <td>
+                            <button class="btn-edit">Redaktə</button>
+                            <button class="btn-delete">Sil</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>402</td>
+                        <td>2026-04-17</td>
+                        <td>14:16</td>
+                        <td>
+                            <button class="btn-edit">Redaktə</button>
+                            <button class="btn-delete">Sil</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+}
+
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+h2 {
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Form Dizaynı */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #64748b;
+}
+
+.input-group select, .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    outline: none;
+    font-size: 15px;
+    color: #334155;
+}
+
+.btn-add {
+    background-color: #68d391; /* Yaşıl rəng */
+    color: white;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #48bb78;
+}
+
+/* Cədvəl Dizaynı */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    background-color: #718096; /* Bozumtul başlıq */
+}
+
+th {
+    color: white;
+    text-align: left;
+    padding: 15px;
+    font-weight: 500;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #edf2f7;
+    color: #4a5568;
+}
+
+/* Düymələr */
+.btn-edit {
+    background-color: #f6ad55; /* Narıncı */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.btn-delete {
+    background-color: #f56565; /* Qırmızı */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
